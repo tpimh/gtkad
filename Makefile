@@ -16,6 +16,9 @@ RM = rm -vf
 
 ifeq ($(OS),Windows_NT)
     EXEEXT = .exe
+    LDFLAGS += -Wl,--export-all-symbols -mwindows
+    WINDRES = windres
+    WRES = ${TARGET}.rc
 else
     EXEEXT = 
 endif
@@ -23,11 +26,7 @@ endif
 all: ${TARGET}${EXEEXT}
 
 clean:
-	@${RM} ${TARGET} *~ *.o *.c *.h *.H *.vapi
-
-${RES:.xml=.c}: ${RES} ${UI}
-	@echo 'RES   $^'
-	@glib-compile-resources ${RES} --target=$@ --sourcedir=$(srcdir) --c-name _ui --generate-source
+	@${RM} ${TARGET} ${WRES:.rc=_res.o} *~ *.o *.c *.h *.H *.vapi
 
 %.c: %.vala
 	@echo 'VALAC $<'
@@ -38,8 +37,16 @@ ${RES:.xml=.c}: ${RES} ${UI}
 	@echo 'CC    $<'
 	@${CC} -o $@ -c $< ${CFLAGS}
 
+${RES:.xml=.c}: ${RES} ${UI}
+	@echo 'RES   $^'
+	@glib-compile-resources ${RES} --target=$@ --sourcedir=$(srcdir) --c-name _ui --generate-source
+
+${WRES:.rc=_res.o}: ${WRES}
+	@echo 'RES   $<'
+	@${WINDRES} $< $@
+
 .SECONDARY: $(addsuffix .c,${SOURCES})
 
-${TARGET}${EXEEXT}: $(addsuffix .o,${SOURCES}) ${RES:.xml=.o}
+${TARGET}${EXEEXT}: $(addsuffix .o,${SOURCES}) ${RES:.xml=.o} ${WRES:.rc=_res.o}
 	@echo 'LD    $@'
 	@${CC} -o $@ $^ ${LDFLAGS}
