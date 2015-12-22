@@ -6,4 +6,4 @@ gtkad.exe
 *.H
 *.vapi
 *~
-#*#
+\#*\#
