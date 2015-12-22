@@ -1,0 +1,9 @@
+gtkad
+gtkad.exe
+*.o
+*.c
+*.h
+*.H
+*.vapi
+*~
+#*#
