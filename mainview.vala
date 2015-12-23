@@ -18,12 +18,12 @@ public class MainView : ApplicationWindow {
     [GtkCallback]
     public static bool on_draw(Widget da, Context ctx) {
         new Canvas(200, 110).draw(ctx);
-        new RegularPolygon(3, 10, 10, 3).draw(ctx);
-        new RegularPolygon(4, 20, 10, 4).draw(ctx);
-        new RegularPolygon(5, 30, 10, 5).draw(ctx);
-        new RegularPolygon(6, 40, 10, 6).draw(ctx);
-        new RegularPolygon(7, 50, 10, 7).draw(ctx);
-        new RegularPolygon(8, 60, 10, 8).draw(ctx);
+        new RegularPolygon(3, 50, 10, 3).draw(ctx);
+        new RegularPolygon(4, 70, 10, 4).draw(ctx);
+        new RegularPolygon(5, 90, 10, 5).draw(ctx);
+        new RegularPolygon(6, 50, 30, 6).draw(ctx);
+        new RegularPolygon(7, 70, 30, 7).draw(ctx);
+        new RegularPolygon(8, 90, 30, 8).draw(ctx);
 
         return true;
     }

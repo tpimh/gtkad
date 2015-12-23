@@ -13,10 +13,18 @@ public class RegularPolygon : Drawable {
         this.y = y;
         this.n = n;
         points = new ArrayList<Point>();
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
+            double d = 2 * Math.PI / n;
             points.add(new Point(
-                Math.cos(2 * Math.PI / n + i * 2 * Math.PI / n) * r,
-                Math.sin(2 * Math.PI / n + i * 2 * Math.PI / n) * r));
+//  3 — 0.25
+//  4 — 0.5
+//  5 — 0.75
+//  6 — 0
+//  7 — 0.25
+//  8 — 0.5
+                Math.cos((i + 0.5) * d + Math.PI / 2) * r,
+                Math.sin((i + 0.5) * d + Math.PI / 2) * r));
+        }
     }
 
     public override void draw(Context ctx) {
@@ -39,6 +47,6 @@ public class RegularPolygon : Drawable {
             p.draw(ctx);
         }
 
-        //ctx.restore();
+        ctx.translate(-x * zoom, -  y * zoom);
     }
 }
