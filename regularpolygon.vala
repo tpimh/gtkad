@@ -12,18 +12,13 @@ public class RegularPolygon : Drawable {
         this.x = x;
         this.y = y;
         this.n = n;
+        double alpha = 2 * Math.PI / n;
         points = new ArrayList<Point>();
         for (int i = 0; i < n; i++) {
-            double d = 2 * Math.PI / n;
+            double beta = (i + 0.5) * alpha + Math.PI / 2;
             points.add(new Point(
-//  3 — 0.25
-//  4 — 0.5
-//  5 — 0.75
-//  6 — 0
-//  7 — 0.25
-//  8 — 0.5
-                Math.cos((i + 0.5) * d + Math.PI / 2) * r,
-                Math.sin((i + 0.5) * d + Math.PI / 2) * r));
+                Math.cos(beta) * r,
+                Math.sin(beta) * r));
         }
     }
 
