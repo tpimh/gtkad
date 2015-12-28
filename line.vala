@@ -7,8 +7,8 @@ public class Line : Drawable {
     public double end_x { get; set; }
     public double end_y { get; set; }
 
-    public double center_x { get; set; }
-    public double center_y { get; set; }
+    public double override x { get; set; }
+    public double override y { get; set; }
 
     public double length { get; set; }
     public double rotation { get; set; }

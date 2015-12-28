@@ -2,8 +2,8 @@ using Cairo;
 using Gee;
 
 public class RegularPolygon : Drawable {
-    public double x { get; set; }
-    public double y { get; set; }
+    public override double x { get; set; }
+    public override double y { get; set; }
     public uint n { get; set; }
     public double r { get; set; }
     public ArrayList<Point> points { get; set; }

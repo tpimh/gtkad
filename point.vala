@@ -1,8 +1,8 @@
 using Cairo;
 
 public class Point : Drawable {
-    public double x { get; set; }
-    public double y { get; set; }
+    public override double x { get; set; }
+    public override double y { get; set; }
 
     public Point(double x, double y) {
         this.x = x;
