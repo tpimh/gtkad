@@ -1,6 +1,6 @@
 TARGET = gtkad
 
-SOURCES = drawable point canvas regularpolygon mainview main
+SOURCES = drawable point line canvas regularpolygon mainview main
 PKGS = gee-0.8 gtk+-3.0
 
 RES = resources.xml

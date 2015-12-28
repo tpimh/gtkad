@@ -1,19 +1,20 @@
 using Cairo;
 
 public class Line : Drawable {
-    public double start_x { get; set; }
-    public double start_y { get; set; }
+    public Point start { get; set; }
+    public Point end { get; set; }
 
-    public double end_x { get; set; }
-    public double end_y { get; set; }
-
-    public double override x { get; set; }
-    public double override y { get; set; }
+    public override double x { get; set; }
+    public override double y { get; set; }
 
     public double length { get; set; }
     public double rotation { get; set; }
 
     public override void draw(Context ctx) {
+        //TODO
+    }
+
+    public Line(double start_x, double start_y, double end_x, double end_y) {
         //TODO
     }
 }

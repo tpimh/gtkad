@@ -72,5 +72,7 @@ public class MainView : ApplicationWindow {
         list_store.set(iter, 0, "Heptagon", 1, new RegularPolygon(7, 70, 30, 7));
         list_store.append(out iter);
         list_store.set(iter, 0, "Octagon", 1, new RegularPolygon(8, 90, 30, 8));
+        list_store.append(out iter);
+        list_store.set(iter, 0, "Line", 1, new Line(40, 40, 80, 80));
     }
 }
