@@ -42,6 +42,6 @@ public class RegularPolygon : Drawable {
             p.draw(ctx);
         }
 
-        ctx.translate(-x * zoom, -  y * zoom);
+        ctx.translate(-x * zoom, -y * zoom);
     }
 }
