@@ -1,10 +1,10 @@
 TARGET = gtkad
 
-SOURCES = drawable point line canvas regularpolygon mainview main
+SOURCES = drawable point line canvas regularpolygon shapedialog mainview main
 PKGS = gee-0.8 gtk+-3.0
 
 RES = resources.xml
-UI = mainview.ui
+UI = mainview.ui shapedialog.ui
 
 CFLAGS = -w -I. `pkg-config --cflags ${PKGS} glib-2.0 gobject-2.0 gmodule-export-2.0`
 LDFLAGS = -lm `pkg-config --libs ${PKGS} glib-2.0 gobject-2.0 gmodule-export-2.0`

@@ -50,9 +50,24 @@ public class MainView : ApplicationWindow {
     }
 
     [GtkCallback]
-    public void on_zoom() {
+    public void on_zoom(Range range) {
         zoom = zoom_scale.get_value();
         drawing_area.queue_draw();
+    }
+
+    [GtkCallback]
+    public void on_doubleclick(TreeView treeview, TreePath path, TreeViewColumn col) {
+        TreeModel model;
+        TreeIter iter;
+
+        model = treeview.get_model();
+
+        if (model.get_iter(out iter, path)) {
+            Drawable drawable;
+            model.get(iter, 1, out drawable, -1);
+
+            new ShapeDialog(drawable).show_all();
+        }
     }
 
     public MainView() {

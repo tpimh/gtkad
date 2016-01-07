@@ -43,6 +43,8 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="model">list_store</property>
+            <property name="headers_visible">False</property>
+            <signal name="row-activated" handler="on_doubleclick" swapped="no"/>
             <child internal-child="selection">
               <object class="GtkTreeSelection" id="tree_view_selection"/>
             </child>
