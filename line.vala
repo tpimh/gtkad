@@ -1,8 +1,25 @@
 using Cairo;
 
 public class Line : Drawable {
+    // relative start and end
     public Point start { get; set; }
     public Point end { get; set; }
+
+    // absolute start and end
+    public Point astart {
+        owned get {
+            return new Point(x - start.x, y - start.y);
+        }
+        set {
+        }
+    }
+    public Point aend {
+        owned get {
+            return new Point(x - end.x, y - end.y);
+        }
+        set {
+        }
+    }
 
     public override double x { get; set; }
     public override double y { get; set; }
@@ -35,5 +52,11 @@ public class Line : Drawable {
 
         start = new Point(x - start_x, y - start_y);
         end = new Point(x - end_x, y - end_y);
+    }
+
+    public override string id {
+        owned get {
+            return "L(" + astart.id + ";" + aend.id + ")";
+        }
     }
 }

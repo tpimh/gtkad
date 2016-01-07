@@ -36,4 +36,10 @@ public class Canvas : Drawable {
             ctx.stroke();
         }
     }
+
+    public override string id {
+        owned get {
+            return "C";
+        }
+    }
 }

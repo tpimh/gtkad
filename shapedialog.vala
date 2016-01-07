@@ -15,6 +15,6 @@ public class ShapeDialog : Dialog {
     public Button cancel_button;
 
     public ShapeDialog(Drawable d) {
-        shape_dialog_vbox.pack_start(new Gtk.Label(GLib.Type.from_instance(d).name()), false, false, 0);
+        shape_dialog_vbox.pack_start(new Gtk.Label(GLib.Type.from_instance(d).name() + ": " + d.id), false, false, 0);
     }
 }

@@ -11,6 +11,7 @@ public class RegularPolygon : Drawable {
     public RegularPolygon(uint n, double x, double y, double r) {
         this.x = x;
         this.y = y;
+        this.r = r;
         this.n = n;
         double alpha = 2 * Math.PI / n;
         points = new ArrayList<Point>();
@@ -43,5 +44,11 @@ public class RegularPolygon : Drawable {
         }
 
         ctx.translate(-x * zoom, -y * zoom);
+    }
+
+    public override string id {
+        owned get {
+            return "RP" + n.to_string() + "(P(" + x.to_string() + ";" + y.to_string() + ");" + r.to_string() + ")";
+        }
     }
 }

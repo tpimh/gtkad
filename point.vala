@@ -14,4 +14,10 @@ public class Point : Drawable {
         ctx.arc(x * zoom, y * zoom, 0.8, 0, 2.0 * 3.14);
         ctx.fill();
     }
+
+    public override string id {
+        owned get {
+            return "P(" + x.to_string() + ";" + y.to_string() + ")";
+        }
+    }
 }
