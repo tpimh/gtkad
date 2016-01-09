@@ -4,20 +4,20 @@ public class Line : Drawable {
     public override Vector2D c { get; set; }
 
     // relative start and end
-    public Point start { get; set; }
-    public Point end { get; set; }
+    public Vector2D start { get; set; }
+    public Vector2D end { get; set; }
 
     // absolute start and end
-    public Point astart {
+    public Vector2D astart {
         owned get {
-            return new Point(c.x - start.x, c.y - start.y);
+            return { c.x - start.x, c.y - start.y };
         }
         set {
         }
     }
-    public Point aend {
+    public Vector2D aend {
         owned get {
-            return new Point(c.x - end.x, c.y - end.y);
+            return { c.x - end.x, c.y - end.y };
         }
         set {
         }
@@ -39,8 +39,8 @@ public class Line : Drawable {
         ctx.close_path();
         ctx.stroke();
 
-        start.draw(ctx);
-        end.draw(ctx);
+        /*start.draw(ctx);
+        end.draw(ctx);*/
 
         ctx.translate(-c.x * zoom, -c.y * zoom);
     }
@@ -48,13 +48,13 @@ public class Line : Drawable {
     public Line(double start_x, double start_y, double end_x, double end_y) {
         c = { (start_x + end_x) / 2, (start_y + end_y) / 2 };
 
-        start = new Point(c.x - start_x, c.y - start_y);
-        end = new Point(c.x - end_x, c.y - end_y);
+        start = { c.x - start_x, c.y - start_y };
+        end = { c.x - end_x, c.y - end_y };
     }
 
     public override string id {
         owned get {
-            return @"L($(astart.id);$(aend.id))";
+            return @"L($astart;$aend)";
         }
     }
 }

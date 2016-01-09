@@ -27,7 +27,7 @@ public class Point : Drawable {
 
     public override string id {
         owned get {
-            return @"P($(c.x);$(c.y))";
+            return @"P($c)";
         }
     }
 }
