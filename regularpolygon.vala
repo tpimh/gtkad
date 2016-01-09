@@ -2,15 +2,13 @@ using Cairo;
 using Gee;
 
 public class RegularPolygon : Drawable {
-    public override double x { get; set; }
-    public override double y { get; set; }
+    public override Vector2D c { get; set; }
     public uint n { get; set; }
     public double r { get; set; }
     public ArrayList<Point> points { get; set; }
 
     public RegularPolygon(uint n, double x, double y, double r) {
-        this.x = x;
-        this.y = y;
+        c = { x, y };
         this.r = r;
         this.n = n;
         double alpha = 2 * Math.PI / n;
@@ -28,7 +26,7 @@ public class RegularPolygon : Drawable {
         ctx.set_line_width(0.5);
         ctx.set_tolerance(0.1);
         ctx.new_path();
-        ctx.translate(x * zoom, y * zoom);
+        ctx.translate(c.x * zoom, c.y * zoom);
         foreach (Point p in points) {
             if (p == points[0]) {
                 ctx.move_to(p.x * zoom, p.y * zoom);
@@ -43,12 +41,12 @@ public class RegularPolygon : Drawable {
             p.draw(ctx);
         }
 
-        ctx.translate(-x * zoom, -y * zoom);
+        ctx.translate(-c.x * zoom, -c.y * zoom);
     }
 
     public override string id {
         owned get {
-            return @"RP$n(P($x;$y);$r)";
+            return @"RP$n(P($(c.x);$(c.y));$r)";
         }
     }
 }

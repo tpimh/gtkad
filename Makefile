@@ -1,6 +1,6 @@
 TARGET = gtkad
 
-SOURCES = drawable point line canvas regularpolygon shapedialog mainview main
+SOURCES = vector2d drawable point line canvas regularpolygon shapedialog mainview main
 PKGS = gee-0.8 gtk+-3.0
 
 RES = resources.xml

@@ -1,6 +1,8 @@
 using Cairo;
 
 public class Line : Drawable {
+    public override Vector2D c { get; set; }
+
     // relative start and end
     public Point start { get; set; }
     public Point end { get; set; }
@@ -8,21 +10,18 @@ public class Line : Drawable {
     // absolute start and end
     public Point astart {
         owned get {
-            return new Point(x - start.x, y - start.y);
+            return new Point(c.x - start.x, c.y - start.y);
         }
         set {
         }
     }
     public Point aend {
         owned get {
-            return new Point(x - end.x, y - end.y);
+            return new Point(c.x - end.x, c.y - end.y);
         }
         set {
         }
     }
-
-    public override double x { get; set; }
-    public override double y { get; set; }
 
     public double length { get; set; }
     public double rotation { get; set; }
@@ -32,7 +31,7 @@ public class Line : Drawable {
         ctx.set_line_width(0.5);
         ctx.set_tolerance(0.1);
         ctx.new_path();
-        ctx.translate(x * zoom, y * zoom);
+        ctx.translate(c.x * zoom, c.y * zoom);
 
         ctx.move_to(start.x * zoom, start.y * zoom);
         ctx.line_to(end.x * zoom, end.y * zoom);
@@ -43,15 +42,14 @@ public class Line : Drawable {
         start.draw(ctx);
         end.draw(ctx);
 
-        ctx.translate(-x * zoom, -y * zoom);
+        ctx.translate(-c.x * zoom, -c.y * zoom);
     }
 
     public Line(double start_x, double start_y, double end_x, double end_y) {
-        x = (start_x + end_x) / 2;
-        y = (start_y + end_y) / 2;
+        c = { (start_x + end_x) / 2, (start_y + end_y) / 2 };
 
-        start = new Point(x - start_x, y - start_y);
-        end = new Point(x - end_x, y - end_y);
+        start = new Point(c.x - start_x, c.y - start_y);
+        end = new Point(c.x - end_x, c.y - end_y);
     }
 
     public override string id {

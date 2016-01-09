@@ -1,8 +1,7 @@
 using Cairo;
 
 public class Canvas : Drawable {
-    public override double x { get; set; }
-    public override double y { get; set; }
+    public override Vector2D c { get; set; }
 
     public double sx { get; set; }
     public double sy { get; set; }
