@@ -66,7 +66,10 @@ public class MainView : ApplicationWindow {
             Drawable drawable;
             model.get(iter, 1, out drawable, -1);
 
-            new ShapeDialog(drawable).show_all();
+            ShapeDialog sd = new ShapeDialog(drawable);
+            sd.transient_for = this;
+            sd.modal = true;
+            sd.show_all();
         }
     }
 
