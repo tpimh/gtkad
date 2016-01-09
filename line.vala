@@ -39,8 +39,8 @@ public class Line : Drawable {
         ctx.close_path();
         ctx.stroke();
 
-        /*start.draw(ctx);
-        end.draw(ctx);*/
+        new Point(start.x, start.y).draw(ctx);
+        new Point(end.x, end.y).draw(ctx);
 
         ctx.translate(-c.x * zoom, -c.y * zoom);
     }

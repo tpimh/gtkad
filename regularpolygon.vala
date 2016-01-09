@@ -35,9 +35,9 @@ public class RegularPolygon : Drawable {
         ctx.close_path();
         ctx.stroke();
 
-        /*foreach (Point p in points) {
-            p.draw(ctx);
-        }*/
+        foreach (Vector2D p in points) {
+            new Point(p.x, p.y).draw(ctx);
+        }
 
         ctx.translate(-c.x * zoom, -c.y * zoom);
     }
