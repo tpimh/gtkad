@@ -17,7 +17,7 @@ public class Point : Drawable {
 
     public override string id {
         owned get {
-            return "P(" + x.to_string() + ";" + y.to_string() + ")";
+            return @"P($x;$y)";
         }
     }
 }

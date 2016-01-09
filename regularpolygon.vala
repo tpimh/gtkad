@@ -48,7 +48,7 @@ public class RegularPolygon : Drawable {
 
     public override string id {
         owned get {
-            return "RP" + n.to_string() + "(P(" + x.to_string() + ";" + y.to_string() + ");" + r.to_string() + ")";
+            return @"RP$n(P($x;$y);$r)";
         }
     }
 }

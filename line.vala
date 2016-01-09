@@ -56,7 +56,7 @@ public class Line : Drawable {
 
     public override string id {
         owned get {
-            return "L(" + astart.id + ";" + aend.id + ")";
+            return @"L($(astart.id);$(aend.id))";
         }
     }
 }
