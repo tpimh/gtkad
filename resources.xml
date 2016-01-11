@@ -3,5 +3,6 @@
   <gresource prefix="/org/golovin/gtkad">
     <file compressed="true" preprocess="xml-stripblanks">mainview.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">shapedialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">options.ui</file>
   </gresource>
 </gresources>

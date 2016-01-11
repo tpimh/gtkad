@@ -15,6 +15,14 @@ public class ShapeDialog : Dialog {
     public Button cancel_button;
 
     public ShapeDialog(Drawable d) {
-        shape_dialog_vbox.pack_start(new Gtk.Label(GLib.Type.from_instance(d).name() + ": " + d.id), false, false, 0);
+        Builder builder = new Builder.from_resource("/org/golovin/gtkad/options.ui");
+
+        Widget options = builder.get_object(Type.from_instance(d).name() + "Options") as Widget;
+
+        if (options == null) {
+            options = new Gtk.Label(Type.from_instance(d).name() + ": " + d.id);
+        }
+
+        shape_dialog_vbox.pack_start(options, false, false, 0);
     }
 }

@@ -4,7 +4,7 @@ SOURCES = vector2d drawable point line canvas regularpolygon shapedialog mainvie
 PKGS = gee-0.8 gtk+-3.0
 
 RES = resources.xml
-UI = mainview.ui shapedialog.ui
+UI = mainview.ui shapedialog.ui options.ui
 
 CFLAGS = -w -I. `pkg-config --cflags ${PKGS} glib-2.0 gobject-2.0 gmodule-export-2.0`
 LDFLAGS = -lm `pkg-config --libs ${PKGS} glib-2.0 gobject-2.0 gmodule-export-2.0`
