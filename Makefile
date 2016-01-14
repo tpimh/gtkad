@@ -56,7 +56,7 @@ ${OBJDIR}/%.o: ${TMPDIR}/%.c
 
 ${TMPDIR}/${RES:.xml=.c}: ${RESDIR}/${RES}
 	@echo 'RES   $(subst ${TMPDIR}/,,$(@:.c=))'
-	@glib-compile-resources ${RESDIR}/${RES} --sourcedir=${RESDIR} --target=$@ --c-name _ui --generate-source
+	@glib-compile-resources $< --sourcedir=${RESDIR} --target=$@ --c-name _ui --generate-source
 
 ${OBJDIR}/${WRES:.rc=_win.o}: ${RESDIR}/${WRES}
 	@echo 'WRES  $(subst ${OBJDIR}/,,$(@:.o=))'
