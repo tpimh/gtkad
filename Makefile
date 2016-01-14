@@ -65,5 +65,5 @@ ${OBJDIR}/${WRES:.rc=_win.o}: ${RESDIR}/${WRES}
 .SECONDARY: $(addprefix ${TMPDIR}/,$(addsuffix .c,${SOURCES}))
 
 ${TARGET}${EXEEXT}: $(addprefix ${OBJDIR}/,${OBJECTS})
-	@echo 'LD    $@'
+	@echo 'LD    $(@:${EXEEXT}=)'
 	@${CC} -o $@ $^ ${LDFLAGS}
