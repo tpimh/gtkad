@@ -43,7 +43,7 @@ clean_tmp:
 	@${RM} ${TMPDIR}/*.c ${TMPDIR}/*.h ${TMPDIR}/*.vapi
 
 ${TMPDIR}/%.c: ${SRCDIR}/%.vala
-	@echo 'VALAC $<'
+	@echo 'VALAC $(subst ${TMPDIR}/,,$(@:.c=))'
 	@${VALAC} -C $< ${VALAOPTS} -b ${SRCDIR} -d ${TMPDIR} \
         $(addprefix --pkg ,$(shell echo ${SOURCES} | sed -e 's~$(subst ${SRCDIR}/,,$(<:.vala=))\b.*~~')) \
         --internal-vapi=$(subst ${SRCDIR}/,,$(<:.vala=.vapi)) \
@@ -51,15 +51,15 @@ ${TMPDIR}/%.c: ${SRCDIR}/%.vala
         --internal-header=$(subst ${SRCDIR}/,${TMPDIR}/,$(<:.vala=_internal.h))
 
 ${OBJDIR}/%.o: ${TMPDIR}/%.c
-	@echo 'CC    $<'
+	@echo 'CC    $(subst ${OBJDIR}/,,$(@:.o=))'
 	@${CC} -o $@ -c $< ${CFLAGS}
 
 ${TMPDIR}/${RES:.xml=.c}: ${RESDIR}/${RES}
-	@echo 'RES   $<'
+	@echo 'RES   $(subst ${TMPDIR}/,,$(@:.c=))'
 	@glib-compile-resources ${RESDIR}/${RES} --sourcedir=${RESDIR} --target=$@ --c-name _ui --generate-source
 
 ${OBJDIR}/${WRES:.rc=_win.o}: ${RESDIR}/${WRES}
-	@echo 'RES   $<'
+	@echo 'WRES  $(subst ${OBJDIR}/,,$(@:.o=))'
 	@${WINDRES} $< $@
 
 .SECONDARY: $(addprefix ${TMPDIR}/,$(addsuffix .c,${SOURCES}))
