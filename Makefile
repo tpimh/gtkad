@@ -44,12 +44,11 @@ clean_tmp:
 
 ${TMPDIR}/%.c: ${SRCDIR}/%.vala
 	@echo 'VALAC $<'
-	@${VALAC} -C $< ${VALAOPTS} $(addprefix --pkg ,$(shell echo ${SOURCES} | \
-        sed -e 's~$(subst ${SRCDIR}/,,$(<:.vala=))\b.*~~')) \
-        --internal-vapi=$(subst ${SRCDIR}/,${TMPDIR}/,$(<:.vala=.vapi)) \
+	@${VALAC} -C $< ${VALAOPTS} -b ${SRCDIR} -d ${TMPDIR} \
+        $(addprefix --pkg ,$(shell echo ${SOURCES} | sed -e 's~$(subst ${SRCDIR}/,,$(<:.vala=))\b.*~~')) \
+        --internal-vapi=$(subst ${SRCDIR}/,,$(<:.vala=.vapi)) \
         --header=$(subst ${SRCDIR}/,${TMPDIR}/,$(<:.vala=.h)) \
         --internal-header=$(subst ${SRCDIR}/,${TMPDIR}/,$(<:.vala=_internal.h))
-	@mv $(<:.vala=.c) $@
 
 ${OBJDIR}/%.o: ${TMPDIR}/%.c
 	@echo 'CC    $<'
