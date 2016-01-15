@@ -4,6 +4,7 @@ SOURCES = vector2d drawable point line canvas regularpolygon shapedialog mainvie
 PKGS = gee-0.8 gtk+-3.0
 
 RES = resources.xml
+UI = $(shell sed -n 's/\s*<file.*>\(.*\)<\/file>/\1/p' ${RESDIR}/${RES})
 
 SRCDIR = src
 RESDIR = res
@@ -23,7 +24,7 @@ ifeq ($(OS),Windows_NT)
     LDFLAGS += -Wl,--export-all-symbols -mwindows
     WINDRES = windres
     WRES = ${TARGET}.rc
-else
+else    
     EXEEXT = 
 endif
 
@@ -41,6 +42,9 @@ clean_obj:
 
 clean_tmp:
 	@${RM} ${TMPDIR}/*.c ${TMPDIR}/*.h ${TMPDIR}/*.vapi
+
+${RESDIR}/${RES}: $(addprefix ${RESDIR}/,${UI})
+	@touch $@
 
 ${TMPDIR}/%.c: ${SRCDIR}/%.vala
 	@echo 'VALAC $(subst ${TMPDIR}/,,$(@:.c=))'
