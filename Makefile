@@ -29,6 +29,7 @@ else
 endif
 
 OBJECTS = $(addsuffix .o,${SOURCES}) ${RES:.xml=.o} ${WRES:.rc=_win.o}
+CCODE = $(addsuffix .c,${SOURCES}) ${RES:.xml=.c}
 
 all: mkdir ${TARGET}${EXEEXT}
 
@@ -42,6 +43,10 @@ clean_obj:
 
 clean_tmp:
 	@${RM} ${TMPDIR}/*.c ${TMPDIR}/*.h ${TMPDIR}/*.vapi
+
+obj: $(addprefix ${OBJDIR}/,${OBJECTS})
+
+tmp: $(addprefix ${TMPDIR}/,${CCODE})
 
 ${RESDIR}/${RES}: $(addprefix ${RESDIR}/,${UI})
 	@touch $@
