@@ -23,7 +23,7 @@ ifeq ($(OS),Windows_NT)
     EXEEXT = .exe
     LDFLAGS += -Wl,--export-all-symbols -mwindows
     WINDRES = windres
-    WRES = ${TARGET}.rc
+    WRES = ${RESDIR}/${TARGET}.rc
 else    
     EXEEXT = 
 endif
@@ -31,10 +31,7 @@ endif
 OBJECTS = $(addsuffix .o,${SOURCES}) ${RES:.xml=.o} ${WRES:.rc=_win.o}
 CCODE = $(addsuffix .c,${SOURCES}) ${RES:.xml=.c}
 
-all: mkdir ${TARGET}${EXEEXT}
-
-mkdir:
-	@mkdir -pv ${OBJDIR} ${TMPDIR}
+all: ${TARGET}${EXEEXT}
 
 clean: clean_obj clean_tmp
 
@@ -48,10 +45,14 @@ obj: $(addprefix ${OBJDIR}/,${OBJECTS})
 
 tmp: $(addprefix ${TMPDIR}/,${CCODE})
 
+%/:
+	@echo "MKDIR $(@:/=)"
+	@mkdir -p $@
+
 ${RESDIR}/${RES}: $(addprefix ${RESDIR}/,${UI})
 	@touch $@
 
-${TMPDIR}/%.c: ${SRCDIR}/%.vala
+${TMPDIR}/%.c: ${SRCDIR}/%.vala | ${TMPDIR}/
 	@echo 'VALAC $(subst ${TMPDIR}/,,$(@:.c=))'
 	@${VALAC} -C $< ${VALAOPTS} -b ${SRCDIR} -d ${TMPDIR} \
         $(addprefix --pkg ,$(shell echo ${SOURCES} | sed -e 's~$(subst ${SRCDIR}/,,$(<:.vala=))\b.*~~')) \
@@ -59,17 +60,19 @@ ${TMPDIR}/%.c: ${SRCDIR}/%.vala
         --header=$(subst ${SRCDIR}/,${TMPDIR}/,$(<:.vala=.h)) \
         --internal-header=$(subst ${SRCDIR}/,${TMPDIR}/,$(<:.vala=_internal.h))
 
-${OBJDIR}/%.o: ${TMPDIR}/%.c
+${OBJDIR}/%.o: ${TMPDIR}/%.c | ${OBJDIR}/
 	@echo 'CC    $(subst ${OBJDIR}/,,$(@:.o=))'
 	@${CC} -o $@ -c $< ${CFLAGS}
 
-${TMPDIR}/${RES:.xml=.c}: ${RESDIR}/${RES}
+${TMPDIR}/${RES:.xml=.c}: ${RESDIR}/${RES} | ${TMPDIR}/
 	@echo 'RES   $(subst ${TMPDIR}/,,$(@:.c=))'
 	@glib-compile-resources $< --sourcedir=${RESDIR} --target=$@ --c-name _ui --generate-source
 
-${OBJDIR}/${WRES:.rc=_win.o}: ${RESDIR}/${WRES}
+${WRES:.rc=_win.o}: ${RESDIR}/${WRES} | ${OBJDIR}/
 	@echo 'WRES  $(subst ${OBJDIR}/,,$(@:.o=))'
 	@${WINDRES} $< $@
+
+.SECONDARY: ${TMPDIR}/ ${OBJDIR}/
 
 ${TARGET}${EXEEXT}: $(addprefix ${OBJDIR}/,${OBJECTS})
 	@echo 'LD    $(@:${EXEEXT}=)'
