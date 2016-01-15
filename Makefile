@@ -71,8 +71,6 @@ ${OBJDIR}/${WRES:.rc=_win.o}: ${RESDIR}/${WRES}
 	@echo 'WRES  $(subst ${OBJDIR}/,,$(@:.o=))'
 	@${WINDRES} $< $@
 
-.SECONDARY: $(addprefix ${TMPDIR}/,$(addsuffix .c,${SOURCES}))
-
 ${TARGET}${EXEEXT}: $(addprefix ${OBJDIR}/,${OBJECTS})
 	@echo 'LD    $(@:${EXEEXT}=)'
 	@${CC} -o $@ $^ ${LDFLAGS}
