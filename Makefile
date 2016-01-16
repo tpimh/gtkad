@@ -4,7 +4,7 @@ SOURCES = vector2d drawable point line canvas regularpolygon shapedialog mainvie
 PKGS = gee-0.8 gtk+-3.0
 
 RES = resources.xml
-UI = $(shell sed -n 's/\s*<file.*>\(.*\)<\/file>/\1/p' ${RESDIR}/${RES})
+UI = $(shell sed -n 's~\s*<file.*>\(.*\)<\/file>~\1~p' ${RESDIR}/${RES})
 
 SRCDIR = src
 RESDIR = res
@@ -24,11 +24,12 @@ ifeq ($(OS),Windows_NT)
     LDFLAGS += -Wl,--export-all-symbols -mwindows
     WINDRES = windres
     WRES = ${RESDIR}/${TARGET}.rc
-else    
+    WRESOBJ = $(subst ${RESDIR}/,${OBJDIR}/,${WRES:.rc=_win.o})
+else
     EXEEXT = 
 endif
 
-OBJECTS = $(addsuffix .o,${SOURCES}) ${RES:.xml=.o} ${WRES:.rc=_win.o}
+OBJECTS = $(addsuffix .o,${SOURCES}) ${RES:.xml=.o} ${WRESOBJ}
 CCODE = $(addsuffix .c,${SOURCES}) ${RES:.xml=.c}
 
 all: ${TARGET}${EXEEXT}
@@ -68,7 +69,7 @@ ${TMPDIR}/${RES:.xml=.c}: ${RESDIR}/${RES} | ${TMPDIR}/
 	@echo 'RES   $(subst ${TMPDIR}/,,$(@:.c=))'
 	@glib-compile-resources $< --sourcedir=${RESDIR} --target=$@ --c-name _ui --generate-source
 
-${WRES:.rc=_win.o}: ${RESDIR}/${WRES} | ${OBJDIR}/
+${WRESOBJ}: ${WRES} | ${OBJDIR}/
 	@echo 'WRES  $(subst ${OBJDIR}/,,$(@:.o=))'
 	@${WINDRES} $< $@
 
