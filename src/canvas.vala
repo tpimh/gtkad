@@ -9,9 +9,9 @@ public class Canvas : Drawable {
         s = { sx, sy };
     }
 
-    public override void draw(Context ctx) {
+    public override void draw(Context ctx, Vector2D translation, double zoom) {
         ctx.set_source_rgb(1.0, 1.0, 1.0);
-        ctx.translate(translate_x * zoom, translate_y * zoom);
+        ctx.translate(translation.x * zoom, translation.y * zoom);
         ctx.move_to(0, 0);
         ctx.rel_line_to(s.x * zoom, 0);
         ctx.rel_line_to(0, s.y * zoom);

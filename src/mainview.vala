@@ -33,16 +33,19 @@ public class MainView : ApplicationWindow {
     [GtkChild]
     public Gtk.ListStore list_store;
 
+    private Vector2D translation;
+    private double zoom = 1.0;
+
     [GtkCallback]
     public bool on_draw(Widget da, Context ctx) {
-        new Canvas(200, 110).draw(ctx);
+        new Canvas(200, 110).draw(ctx, translation, zoom);
 
         list_store.foreach((model, path, iter) => {
             Value drawable;
 
             list_store.get_value(iter, 1, out drawable);
 
-            (drawable as Drawable).draw(ctx);
+            (drawable as Drawable).draw(ctx, translation, zoom);
             return false;
         });
 
@@ -74,6 +77,8 @@ public class MainView : ApplicationWindow {
     }
 
     public MainView() {
+        translation = { 10.0, 10.0 };
+
         zoom_scale.add_mark(1.0, PositionType.BOTTOM, null);
 
         TreeIter iter;

@@ -26,7 +26,7 @@ public class Line : Drawable {
     public double length { get; set; }
     public double rotation { get; set; }
 
-    public override void draw(Context ctx) {
+    public override void draw(Context ctx, Vector2D translation, double zoom) {
         ctx.set_source_rgb(0, 0, 0);
         ctx.set_line_width(0.5);
         ctx.set_tolerance(0.1);
@@ -39,8 +39,8 @@ public class Line : Drawable {
         ctx.close_path();
         ctx.stroke();
 
-        new Point(start.x, start.y).draw(ctx);
-        new Point(end.x, end.y).draw(ctx);
+        new Point(start.x, start.y).draw(ctx, translation, zoom);
+        new Point(end.x, end.y).draw(ctx, translation, zoom);
 
         ctx.translate(-c.x * zoom, -c.y * zoom);
     }

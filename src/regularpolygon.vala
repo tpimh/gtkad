@@ -19,7 +19,7 @@ public class RegularPolygon : Drawable {
         }
     }
 
-    public override void draw(Context ctx) {
+    public override void draw(Context ctx, Vector2D translation, double zoom) {
         ctx.set_source_rgb(0, 0, 0);
         ctx.set_line_width(0.5);
         ctx.set_tolerance(0.1);
@@ -36,7 +36,7 @@ public class RegularPolygon : Drawable {
         ctx.stroke();
 
         foreach (Vector2D p in points) {
-            new Point(p.x, p.y).draw(ctx);
+            new Point(p.x, p.y).draw(ctx, translation, zoom);
         }
 
         ctx.translate(-c.x * zoom, -c.y * zoom);
