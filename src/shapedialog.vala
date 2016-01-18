@@ -14,6 +14,16 @@ public class ShapeDialog : Dialog {
     [GtkChild]
     public Button cancel_button;
 
+    [GtkCallback]
+    public void on_cancel() {
+        this.destroy();
+    }
+
+    [GtkCallback]
+    public void on_apply() {
+
+    }
+
     public ShapeDialog(Drawable d) {
         Builder builder = new Builder.from_resource("/org/golovin/gtkad/options.ui");
 
