@@ -5,7 +5,29 @@ public class RegularPolygon : Drawable {
     public override Vector2D c { get; set; }
 
     public override Vector2D s {
-        get { return { 1, 1 }; } //TODO: fix this
+        get {
+            Vector2D m = { double.MIN, double.MIN };
+            foreach (Vector2D p in points) {
+                if (p.x > m.x)
+                    m.x = p.x;
+                if (p.y > m.y)
+                    m.y = p.y;
+            }
+            return m;
+        }
+    }
+
+    public override double rs {
+        get {
+            double m = double.MIN;
+            foreach (Vector2D p in points) {
+                if (Math.fabs(p.x) > m)
+                    m = Math.fabs(p.x);
+                if (Math.fabs(p.y) > m)
+                    m = Math.fabs(p.y);
+            }
+            return m * 2;
+        }
     }
 
     public uint n { get; set; }

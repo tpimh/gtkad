@@ -7,6 +7,10 @@ public class Line : Drawable {
         get { return { Math.fabs(start.x - end.x), Math.fabs(start.y - end.y) }; }
     }
 
+    public override double rs {
+        get { return length; }
+    }
+
     // relative start and end
     public Vector2D start { get; set; }
     public Vector2D end { get; set; }

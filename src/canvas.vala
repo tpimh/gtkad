@@ -8,6 +8,10 @@ public class Canvas : Drawable {
         get { return _s; }
     }
 
+    public override double rs {
+        get { return 0; } // canvas doesn't rotate
+    }
+
     public Canvas(double sx, double sy) {
         _s = { sx, sy };
     }

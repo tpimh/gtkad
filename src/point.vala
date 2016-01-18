@@ -7,6 +7,10 @@ public class Point : Drawable {
         get { return { 1, 1 }; }
     }
 
+    public override double rs {
+        get { return 1; }
+    }
+
     public Point(double x, double y) {
         c = { x, y };
     }
