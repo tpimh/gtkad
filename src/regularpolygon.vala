@@ -3,6 +3,11 @@ using Gee;
 
 public class RegularPolygon : Drawable {
     public override Vector2D c { get; set; }
+
+    public override Vector2D s {
+        get { return { 1, 1 }; } //TODO: fix this
+    }
+
     public uint n { get; set; }
     public double r { get; set; }
     public ArrayList<Vector2D?> points { get; set; }
@@ -24,7 +29,7 @@ public class RegularPolygon : Drawable {
         ctx.set_line_width(0.5);
         ctx.set_tolerance(0.1);
         ctx.new_path();
-        ctx.translate(c.x * zoom, c.y * zoom);
+        ctx.translate((translation.x + c.x) * zoom, (translation.y + c.y) * zoom);
         foreach (Vector2D p in points) {
             if (p == points[0]) {
                 ctx.move_to(p.x * zoom, p.y * zoom);
@@ -36,10 +41,10 @@ public class RegularPolygon : Drawable {
         ctx.stroke();
 
         foreach (Vector2D p in points) {
-            new Point(p.x, p.y).draw(ctx, translation, zoom);
+            new Point(p.x, p.y).draw(ctx, { 0, 0 }, zoom);
         }
 
-        ctx.translate(-c.x * zoom, -c.y * zoom);
+        ctx.translate(-(translation.x + c.x) * zoom, -(translation.y + c.y) * zoom);
     }
 
     public override string id {

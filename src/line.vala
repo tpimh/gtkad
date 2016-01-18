@@ -3,6 +3,10 @@ using Cairo;
 public class Line : Drawable {
     public override Vector2D c { get; set; }
 
+    public override Vector2D s {
+        get { return { Math.fabs(start.x - end.x), Math.fabs(start.y - end.y) }; }
+    }
+
     // relative start and end
     public Vector2D start { get; set; }
     public Vector2D end { get; set; }
@@ -31,7 +35,7 @@ public class Line : Drawable {
         ctx.set_line_width(0.5);
         ctx.set_tolerance(0.1);
         ctx.new_path();
-        ctx.translate(c.x * zoom, c.y * zoom);
+        ctx.translate((translation.x + c.x) * zoom, (translation.y + c.y) * zoom);
 
         ctx.move_to(start.x * zoom, start.y * zoom);
         ctx.line_to(end.x * zoom, end.y * zoom);
@@ -39,10 +43,10 @@ public class Line : Drawable {
         ctx.close_path();
         ctx.stroke();
 
-        new Point(start.x, start.y).draw(ctx, translation, zoom);
-        new Point(end.x, end.y).draw(ctx, translation, zoom);
+        new Point(start.x, start.y).draw(ctx, { 0, 0 }, zoom);
+        new Point(end.x, end.y).draw(ctx, { 0, 0 }, zoom);
 
-        ctx.translate(-c.x * zoom, -c.y * zoom);
+        ctx.translate(-(translation.x + c.x) * zoom, -(translation.y + c.y) * zoom);
     }
 
     public Line(double start_x, double start_y, double end_x, double end_y) {

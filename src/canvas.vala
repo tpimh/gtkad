@@ -3,10 +3,13 @@ using Cairo;
 public class Canvas : Drawable {
     public override Vector2D c { get; set; }
 
-    public Vector2D s { get; set; } // size of the canvas
+    private Vector2D _s { get; set; }
+    public override Vector2D s {
+        get { return _s; }
+    }
 
     public Canvas(double sx, double sy) {
-        s = { sx, sy };
+        _s = { sx, sy };
     }
 
     public override void draw(Context ctx, Vector2D translation, double zoom) {
@@ -32,6 +35,7 @@ public class Canvas : Drawable {
             ctx.line_to(s.x * zoom, yy * zoom);
             ctx.stroke();
         }
+        ctx.translate(-translation.x * zoom, -translation.y * zoom);
     }
 
     public override string id {
