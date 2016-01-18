@@ -38,9 +38,9 @@ public class ShapeDialog : Dialog {
         Vector2D s = { da.get_allocated_width(), da.get_allocated_height() };
         double zoom = 1.0;
 
-        new Canvas(s.x, s.y).draw(ctx, {0, 0}, zoom);
+        new Canvas(s.x, s.y).draw(ctx, { 0, 0 }, zoom);
 
-        drawable.draw(ctx, {0, 0}, zoom);
+        drawable.draw(ctx, { -drawable.c.x + 100, -drawable.c.y + 100 }, zoom);
 
         return true;
     }
