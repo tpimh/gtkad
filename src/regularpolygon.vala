@@ -19,14 +19,7 @@ public class RegularPolygon : Drawable {
 
     public override double rs {
         get {
-            double m = double.MIN;
-            foreach (Vector2D p in points) {
-                if (Math.fabs(p.x) > m)
-                    m = Math.fabs(p.x);
-                if (Math.fabs(p.y) > m)
-                    m = Math.fabs(p.y);
-            }
-            return m * 2;
+            return r * 2;
         }
     }
 

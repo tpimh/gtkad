@@ -31,7 +31,14 @@ public class Line : Drawable {
         }
     }
 
-    public double length { get; set; }
+    public double length {
+        get {
+            return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
+        }
+        set {
+            //TODO
+        }
+    }
     public double rotation { get; set; }
 
     public override void draw(Context ctx, Vector2D translation, double zoom) {

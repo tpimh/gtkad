@@ -35,12 +35,12 @@ public class ShapeDialog : Dialog {
 
     [GtkCallback]
     public bool on_draw(Widget da, Context ctx) {
-        Vector2D s = { da.get_allocated_width(), da.get_allocated_height() };
-        double zoom = 1.0;
+        double zoom = Math.fmin(da.get_allocated_width(), da.get_allocated_height()) / drawable.rs * 0.9;
+        Vector2D s = { da.get_allocated_width() / zoom, da.get_allocated_height() / zoom };
 
         new Canvas(s.x, s.y).draw(ctx, { 0, 0 }, zoom);
 
-        drawable.draw(ctx, { -drawable.c.x + 100, -drawable.c.y + 100 }, zoom);
+        drawable.draw(ctx, { -drawable.c.x + s.x / 2.0, -drawable.c.y + s.y / 2.0 }, zoom);
 
         return true;
     }
