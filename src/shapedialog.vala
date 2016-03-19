@@ -35,10 +35,20 @@ public class ShapeDialog : Dialog {
 
     [GtkCallback]
     public bool on_draw(Widget da, Context ctx) {
-        double zoom = Math.fmin(da.get_allocated_width(), da.get_allocated_height()) / drawable.rs * 0.9;
-        Vector2D s = { da.get_allocated_width() / zoom, da.get_allocated_height() / zoom };
+        Vector2D visible_area = { da.get_allocated_width(), da.get_allocated_height() };
 
-        new Canvas(s.x, s.y).draw(ctx, { 0, 0 }, zoom);
+        double zoom = Math.fmin(visible_area.x, visible_area.y) / drawable.rs * 0.9;
+        Vector2D s = { visible_area.x / zoom, visible_area.y / zoom };
+
+        double cell_size = 10.0 * zoom; // modifications should be done according to cell size in canvas
+
+        double a = (visible_area.x / 2) * (zoom - 1);
+        while (a >= cell_size)
+            a -= cell_size;
+
+        Vector2D offset = { -a / zoom - (drawable.c.x % 10), -a / zoom - (drawable.c.y % 10) };
+
+        new Canvas(s.x - offset.x, s.y - offset.y).draw(ctx, offset, zoom);
 
         drawable.draw(ctx, { -drawable.c.x + s.x / 2.0, -drawable.c.y + s.y / 2.0 }, zoom);
 
